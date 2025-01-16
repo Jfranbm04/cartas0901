@@ -9,12 +9,15 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <span>Bienvenido: {{ app.user.username }}</span>
+    <a href="/logout">Cerrar sesion</a>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/juanf/OneDrive/Escritorio/01-symfony/cartas0901/src/Controller/MainController.php</code></li>
-        <li>Your template at <code>C:/Users/juanf/OneDrive/Escritorio/01-symfony/cartas0901/templates/main/index.html.twig</code></li>
-    </ul>
+    <h1>Juego!</h1>
+    <h2>Crear partida</h2>
+    <a href="/startGame">Crear</a>
+    
+    <h2>Lista de partidas</h2>
+    
+
 </div>
 {% endblock %}
