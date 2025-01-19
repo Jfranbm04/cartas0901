@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}StartGame{% endblock %}
+{% block title %}continueGame{% endblock %}
 
 {% block body %}
 <style>
@@ -9,14 +9,15 @@
 </style>
 <div class="example-wrapper">
     <a href="/main">Volver</a>  
-    <h1>Iniciar juego</h1>
+    <h1>Continuar partida {{codigoJuego}}</h1>
     <p>Elige una carta:</p>
     <ul>
         {% for card in playerCards %}
             <li>
                 Carta: {{ card.number }} de {{ card.suit }}
-                <form method="GET" action="{{ path('selectCard1') }}">
+                <form method="GET" action="{{ path('selectCard2') }}">
                     <input type="hidden" name="idCard" value="{{ card.id }}">
+                    <input type="hidden" name="idGame" value="{{ codigoJuego }}">
                     <button type="submit">Seleccionar</button>
                 </form>
             </li>

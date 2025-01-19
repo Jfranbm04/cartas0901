@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Juego!{% endblock %}
 
 {% block body %}
 <style>
@@ -17,7 +17,16 @@
     <a href="/startGame">Crear</a>
     
     <h2>Lista de partidas</h2>
-    
+    {% for game in gamesStarted %}
+        <div style="border: 1px solid #ddd; border-radius: 5px; padding: 10px; margin-bottom: 10px; background-color: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            <span style="font-size: 14px; color: #333;">Partida {{ game.id }}</span> | 
+            <span style="font-size: 14px; color: #333;">{{ game.local.username }}</span>
+            {% if game.local.username  !=  app.user.username  %}
+            <a href="/continueGame/{{game.id}}" style="text-decoration: none; color: #007BFF; font-weight: bold; margin-left: 10px;">Jugar</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <h2>Tus partidas jugadas</h2>
 
 </div>
 {% endblock %}

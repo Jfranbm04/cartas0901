@@ -40,4 +40,26 @@ class GameRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    /**
+     * Encuentra las partidas con resultado NULL
+     * @return Game[]
+     */
+    public function findGamesWithNullResult(): array
+    {
+        return $this->createQueryBuilder('game')
+            ->andWhere('game.result IS NULL')
+            ->getQuery()
+            ->getResult();
+    }
+
+    // public function findGamesByUserId($userId): array
+    // {
+    //     return $this->createQueryBuilder('game')
+    //         ->where('game.user = userId')
+    //         ->andWhere('game.result IS NOT NULL')
+    //         ->setParameter('userId', $userId)
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 }
