@@ -27,6 +27,37 @@
         </div>
     {% endfor %}
     <h2>Tus partidas jugadas</h2>
+    {% for game in gamesCompleted %}
+        <div style="border: 1px solid #ddd; border-radius: 5px; padding: 10px; margin-bottom: 10px; background-color: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            <span style="font-size: 14px; color: #333;">Partida {{ game.id }}</span> <br /> 
+            <span style="font-size: 14px; color: #333;">{{ game.local.username }}</span>: <span style="font-size: 14px; color: #333;">{{ game.localCard.number }} de {{ game.localCard.suit }}</span> <br /> 
+            
+            {# Muestro las partidas iniciadas y las completadas #}
+            {% if game.result is not null %}
+                <span style="font-size: 14px; color: #333;">{{ game.away.username }}</span>: <span style="font-size: 14px; color: #333;">{{ game.awayCard.number }} de {{ game.awayCard.suit }}</span> <br /> 
+                
+                {# Muestro resultado #}
+                {% if game.result == -1 %}
+                    <span style="font-size: 14px; color: blue;">Gana {{ game.local.username }}</span>
+                {% elseif game.result == 0 %}
+                    <span style="font-size: 14px; color: red;">Empate</span>
+                {% elseif game.result == 1 %}
+                    <span style="font-size: 14px; color: blue;">Gana {{ game.away.username }}</span>
+                {% endif %}
+                <br /> 
+                <span style="font-size: 14px; background-color: green; color: white; padding: 5px;">PARTIDA COMPLETADA</span> 
+
+
+
+            {% else %}
+                <span style="font-size: 14px; background-color: red; color: white; padding: 5px;">PARTIDA INICIADA</span> 
+
+            {% endif %}
+
+
+            
+        </div>
+    {% endfor %}
 
 </div>
 {% endblock %}

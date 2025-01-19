@@ -20,12 +20,12 @@ class MainController extends AbstractController
         $gamesStarted = $gameRepository->findGamesWithNullResult();
 
         // Partidas jugadas y completadas por el usuario
-        // $gamesCompleted = $gameRepository->findGamesByUserId($this->getUser()->id);
+        $gamesCompleted = $gameRepository->findGamesByUserId($this->getUser()->getId());                            // Da error pero sí que existe el metodo
 
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
             'gamesStarted' => $gamesStarted,
-            // 'gamesCompleted' => $gamesCompleted,
+            'gamesCompleted' => $gamesCompleted,
         ]);
     }
 
@@ -82,31 +82,3 @@ class MainController extends AbstractController
         ]);
     }
 }
-
-
-
-
-/*
-
-    #[Route('/selectCard', name: 'selectCard', methods: ['GET', 'POST'])]
-    public function selectCard(Request $request, EntityManagerInterface $entityManager)
-    {
-        // Obtener el ID de la carta desde la solicitud
-        $cardId = $request->request->get('card_id');
-
-        // Saco el ID del usuario de la sesion
-        $user = new User($this->getUser());
-        $userId = $user->getId();
-
-
-
-        // Crear un nuevo juego
-        $game = new Game();
-        $game->setDate(new \DateTime());  // Establecer la fecha actual
-        $game->setLocal('Jugador');
-
-
-        return $this->render('main/index.html.twig', []);
-    }
-
-*/

@@ -53,13 +53,15 @@ class GameRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    // public function findGamesByUserId($userId): array
-    // {
-    //     return $this->createQueryBuilder('game')
-    //         ->where('game.user = userId')
-    //         ->andWhere('game.result IS NOT NULL')
-    //         ->setParameter('userId', $userId)
-    //         ->getQuery()
-    //         ->getResult();
-    // }
+    // Encontrar partidas completas según id del usuario
+    public function findGamesByUserId($userId): array
+    {
+        return $this->createQueryBuilder('game')
+            ->where('game.Local = :userId')
+            ->orwhere('game.away = :userId')
+            // ->andWhere('game.result IS NOT NULL')
+            ->setParameter('userId', $userId)  // Aquí defino el valor para :userId
+            ->getQuery()
+            ->getResult();
+    }
 }

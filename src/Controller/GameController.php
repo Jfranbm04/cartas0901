@@ -105,37 +105,9 @@ final class GameController extends AbstractController
         // Actualizo la base de datos con el juego actualizado  (Al utilizar $gameRepository->find($gameId)), Doctrine lo considera gestionado y cualquier cambio que haga en las propiedades del objeto automáticamente marca ese objeto como modificado y al utilizar flush lo actualiza en la BD)
         $entityManager->flush();
 
-
-        // // Crear un nuevo juego
-        // $game = new Game();
-        // $game->setLocal($user);
-        // $game->setLocalCard($card);
-
-        // // Añado el nuevo juego a la BD
-        // $entityManager->persist($game);
-        // $entityManager->flush();
-
         // return $this->render('main/index.html.twig', []);
         return $this->redirectToRoute('app_main');
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
