@@ -12,6 +12,11 @@
     <span>Bienvenido: {{ app.user.username }}</span>
     <a href="/logout">Cerrar sesion</a>
 
+    {% if 'USER_ADMIN' in app.user.roles %}
+    <br />
+        <a href="/admin">Panel admin</a>
+    {% endif %}
+
     <h1>Juego!</h1>
     <h2>Crear partida</h2>
     <a href="/startGame">Crear</a>

@@ -20,7 +20,7 @@ class MainController extends AbstractController
         $gamesStarted = $gameRepository->findGamesWithNullResult();
 
         // Partidas jugadas y completadas por el usuario
-        $gamesCompleted = $gameRepository->findGamesByUserId($this->getUser()->getId());                            // Da error pero sí que existe el metodo
+        $gamesCompleted = $gameRepository->findGamesByUserId($this->getUser()->getId());   // Da error pero sí que existe el metodo
 
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
@@ -79,6 +79,17 @@ class MainController extends AbstractController
             'games' => $games,
             'codigoJuego' => $codigoJuego,
 
+        ]);
+    }
+
+    // Mostrar pantalla admin
+    #[Route('/admin', name: 'admin', methods: ['GET', 'POST'])]
+    public function adminView(): Response
+    {
+
+
+        return $this->render('main/admin.html.twig', [
+            'controller_name' => 'UserController',
         ]);
     }
 }
