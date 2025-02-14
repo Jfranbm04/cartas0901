@@ -20,7 +20,7 @@ class MainController extends AbstractController
         $gamesStarted = $gameRepository->findGamesWithNullResult();
 
         // Partidas jugadas y completadas por el usuario
-        $gamesCompleted = $gameRepository->findGamesByUserId($this->getUser()->getId());   // Da error pero sí que existe el metodo
+        $gamesCompleted = $gameRepository->findGamesByUser($this->getUser());
 
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
@@ -41,7 +41,7 @@ class MainController extends AbstractController
         shuffle($cards);   // Barajar cartas
 
         // Generar cartas para el jugador
-        $playerCards = array_slice($cards, 0, 2);
+        $playerCards = array_slice($cards, 0, 4);
 
 
         // partidas empezadas pero con resultado nulo
@@ -67,7 +67,7 @@ class MainController extends AbstractController
         shuffle($cards);   // Barajar cartas
 
         // Generar cartas para el jugador
-        $playerCards = array_slice($cards, 0, 2);
+        $playerCards = array_slice($cards, 0, 4);
 
         // Partidas empezadas pero con resultado nulo
         $games = $gameRepository->findGamesWithNullResult();

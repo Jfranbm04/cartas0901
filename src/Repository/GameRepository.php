@@ -54,13 +54,13 @@ class GameRepository extends ServiceEntityRepository
     }
 
     // Encontrar partidas completas según id del usuario
-    public function findGamesByUserId($userId): array
+    public function findGamesByUser($user): array
     {
         return $this->createQueryBuilder('game')
-            ->where('game.Local = :userId')
-            ->orwhere('game.away = :userId')
+            ->where('game.Local = :user')
+            ->orwhere('game.away = :user')
             // ->andWhere('game.result IS NOT NULL')
-            ->setParameter('userId', $userId)  // Aquí defino el valor para :userId
+            ->setParameter('user', $user)  // Aquí defino el valor para :userId
             ->getQuery()
             ->getResult();
     }

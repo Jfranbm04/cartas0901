@@ -50,20 +50,27 @@ final class GameController extends AbstractController
     public function selectCard1(Request $request, EntityManagerInterface $entityManager, CardRepository $cardRepository)
     {
         // Obtener el ID de la carta desde la solicitud
-        $cardId = $request->query->get('idCard');
+        $selectedCards = $request->get('idCards');
 
-        $card = $cardRepository->find($cardId);
+        $cardId1 = $selectedCards[0];
+        $cardId2 = $selectedCards[1];
+
+        // Buscar las cartas en la base de datos
+        $card1 = $cardRepository->find($cardId1);
+        $card2 = $cardRepository->find($cardId2);
 
         // Saco el usuario de la sesion
         $user = $this->getUser();
 
 
-        // Crear un nuevo juego
+        // // Crear un nuevo juego
         $game = new Game();
         $game->setLocal($user);
-        $game->setLocalCard($card);
 
-        // Añado el nuevo juego a la BD
+        $game->setLocalCard($card1);
+        $game->setLocalCard2($card2);
+
+        // // Añado el nuevo juego a la BD
         $entityManager->persist($game);
         $entityManager->flush();
 
@@ -77,9 +84,14 @@ final class GameController extends AbstractController
     public function selectCard2(Request $request, EntityManagerInterface $entityManager, CardRepository $cardRepository, GameRepository $gameRepository)
     {
         // Obtener el ID de la carta desde la solicitud
-        $cardId = $request->query->get('idCard');
+        $selectedCards = $request->get('idCards');
 
-        $card = $cardRepository->find($cardId);
+        $cardId1 = $selectedCards[0];
+        $cardId2 = $selectedCards[1];
+
+        // Buscar las cartas en la base de datos
+        $card1 = $cardRepository->find($cardId1);
+        $card2 = $cardRepository->find($cardId2);
 
         // Saco el usuario de la sesion
         $user = $this->getUser();
@@ -88,19 +100,21 @@ final class GameController extends AbstractController
         $gameId = $request->query->get('idGame');
         $game = $gameRepository->find($gameId);
 
-        // Saco el resultado de la partida
-        if ($game->getLocalCard()->getNumber() > $card->getNumber()) {
-            $result = -1;
-        } else if ($game->getLocalCard()->getNumber() < $card->getNumber()) {
-            $result = 1;
-        } else {
-            $result = 0;
-        }
+        // // Saco el resultado de la partida
+        // if ($game->getLocalCard()->getNumber() > $card->getNumber()) {
+        //     $result = -1;
+        // } else if ($game->getLocalCard()->getNumber() < $card->getNumber()) {
+        //     $result = 1;
+        // } else {
+        //     $result = 0;
+        // }
 
         // Actualizo el objeto juego
         $game->setAway($user);
-        $game->setAwayCard($card);
-        $game->setResult($result);
+
+        $game->setAwayCard($card1);
+        $game->setAwayCardId2($card2);
+        // $game->setResult($result);
 
         // Actualizo la base de datos con el juego actualizado  (Al utilizar $gameRepository->find($gameId)), Doctrine lo considera gestionado y cualquier cambio que haga en las propiedades del objeto automáticamente marca ese objeto como modificado y al utilizar flush lo actualiza en la BD)
         $entityManager->flush();
@@ -108,7 +122,45 @@ final class GameController extends AbstractController
         // return $this->render('main/index.html.twig', []);
         return $this->redirectToRoute('app_main');
     }
+    /**
+        // Obtener el ID de la carta desde la solicitud
+        $selectedCards = $request->get('idCards');
 
+        $cardId1 = $selectedCards[0];
+        $cardId2 = $selectedCards[1];
+
+        // Buscar las cartas en la base de datos
+        $card1 = $cardRepository->find($cardId1);
+        $card2 = $cardRepository->find($cardId2);
+
+        // Saco el usuario de la sesion
+        $user = $this->getUser();
+
+
+        // // Crear un nuevo juego
+        $game = new Game();
+        $game->setAway($user);
+
+        $game->setAwayCard($card1);
+        $game->setAwayCardId2($card2);
+
+        // Saco el resultado de la partida
+        // if ($game->getLocalCard()->getNumber() > $card->getNumber()) {
+        //     $result = -1;
+        // } else if ($game->getLocalCard()->getNumber() < $card->getNumber()) {
+        //     $result = 1;
+        // } else {
+        //     $result = 0;
+        // }
+
+
+        // Actualizo la base de datos con el juego actualizado  (Al utilizar $gameRepository->find($gameId)), Doctrine lo considera gestionado y cualquier cambio que haga en las propiedades del objeto automáticamente marca ese objeto como modificado y al utilizar flush lo actualiza en la BD)
+        $entityManager->flush();
+
+        // return $this->render('main/index.html.twig', []);
+        return $this->redirectToRoute('app_main'); 
+
+     */
 
 
 

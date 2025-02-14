@@ -10,18 +10,18 @@
 <div class="example-wrapper">
     <a href="/main">Volver</a>  
     <h1>Iniciar juego</h1>
-    <p>Elige una carta:</p>
-    <ul>
-        {% for card in playerCards %}
-            <li>
-                Carta: {{ card.number }} de {{ card.suit }}
-                <form method="GET" action="{{ path('selectCard1') }}">
-                    <input type="hidden" name="idCard" value="{{ card.id }}">
-                    <button type="submit">Seleccionar</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
+    <p>Elige dos cartas:</p>
+    <form method="GET" action="{{ path('selectCard1') }}">
+        <ul>
+            {% for card in playerCards %}
+                <li>
+                    Carta: {{ card.number }} de {{ card.suit }}
+                    <input type="checkbox" name="idCards[]" value="{{ card.id }}">
+                </li>
+            {% endfor %}
+        </ul>
+        <input type="submit" value="Seleccionar"></input>
+    </form>
     
 
 </div>

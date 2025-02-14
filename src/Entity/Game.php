@@ -30,6 +30,13 @@ class Game
     #[ORM\ManyToOne(inversedBy: 'games')]
     private ?Card $awayCard = null;
 
+    #[ORM\ManyToOne(inversedBy: 'away_card_id_2')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Card $local_card_2 = null;
+
+    #[ORM\ManyToOne]
+    private ?Card $away_card_2 = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +98,30 @@ class Game
     public function setAwayCard(?Card $awayCard): static
     {
         $this->awayCard = $awayCard;
+
+        return $this;
+    }
+
+    public function getLocalCard2(): ?Card
+    {
+        return $this->local_card_2;
+    }
+
+    public function setLocalCard2(?Card $local_card_2): static
+    {
+        $this->local_card_2 = $local_card_2;
+
+        return $this;
+    }
+
+    public function getAwayCardId2(): ?Card
+    {
+        return $this->away_card_2;
+    }
+
+    public function setAwayCardId2(?Card $away_card_2): static
+    {
+        $this->away_card_2 = $away_card_2;
 
         return $this;
     }

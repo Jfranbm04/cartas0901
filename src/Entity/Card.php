@@ -27,9 +27,16 @@ class Card
     #[ORM\OneToMany(targetEntity: Game::class, mappedBy: 'localCard')]
     private Collection $games;
 
+    /**
+     * @var Collection<int, Game>
+     */
+    #[ORM\OneToMany(targetEntity: Game::class, mappedBy: 'local_card_2')]
+    private Collection $away_card_2;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
+        $this->away_card_2 = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,6 +92,36 @@ class Card
             // set the owning side to null (unless already changed)
             if ($game->getLocalCard() === $this) {
                 $game->setLocalCard(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Game>
+     */
+    public function getAwayCardId2(): Collection
+    {
+        return $this->away_card_2;
+    }
+
+    public function addAwayCardId2(Game $awayCardId2): static
+    {
+        if (!$this->away_card_2->contains($awayCardId2)) {
+            $this->away_card_2->add($awayCardId2);
+            $awayCardId2->setLocalCardId2($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAwayCardId2(Game $awayCardId2): static
+    {
+        if ($this->away_card_2->removeElement($awayCardId2)) {
+            // set the owning side to null (unless already changed)
+            if ($awayCardId2->getLocalCardId2() === $this) {
+                $awayCardId2->setLocalCardId2(null);
             }
         }
 
